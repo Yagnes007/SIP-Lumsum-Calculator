@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIP Calculator - Wisdom Consultancy</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      text-align: center;
+      background: #fff;
+      padding: 20px 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .header img {
+      max-width: 160px;
+    }
+    .branding {
+      font-size: 1.2rem;
+      color: #555;
+      margin-top: 10px;
+    }
+    .container {
+      max-width: 500px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background-color: #f7931e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #e67e00;
+    }
+    .results {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .whatsapp {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .whatsapp a {
+      background-color: #25D366;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="Final_Logo%20Without%20Background.png" alt="Wisdom Consultancy Logo">
+    <div class="branding">Wisdom Consultancy | Yagnesh Dole | Secure Your Future</div>
+  </div>
+  <div class="container">
+    <h2>SIP Calculator</h2>
+    <label for="sip">Monthly SIP Amount (₹):</label>
+    <input type="number" id="sip">
+
+    <label for="stepUp">Annual Step-Up (%):</label>
+    <input type="number" id="stepUp" value="0">
+
+    <label for="lumpsum">Lumpsum Investment (₹):</label>
+    <input type="number" id="lumpsum">
+
+    <label for="returns">Expected Annual Return (%):</label>
+    <input type="number" id="returns" value="12">
+
+    <label for="years">Investment Years:</label>
+    <input type="number" id="years">
+
+    <label for="wait">Waiting Years (Post Investment):</label>
+    <input type="number" id="wait">
+
+    <button onclick="calculateSIP()">Calculate</button>
+
+    <div class="results" id="results"></div>
+
+    <div class="whatsapp">
+      <p>Join Our Private WhatsApp Group for Smart Investment Tips 👇</p>
+      <a href="https://chat.whatsapp.com/HrKxAQt2KB24vLjsxTSRH6" target="_blank">Join Now</a>
+    </div>
+  </div>
+
+  <script>
+    function calculateSIP() {
+      const sip = parseFloat(document.getElementById('sip').value) || 0;
+      const stepUp = parseFloat(document.getElementById('stepUp').value) / 100;
+      const lumpsum = parseFloat(document.getElementById('lumpsum').value) || 0;
+      const returns = parseFloat(document.getElementById('returns').value) / 100;
+      const years = parseInt(document.getElementById('years').value);
+      const wait = parseInt(document.getElementById('wait').value);
+
+      let totalInvested = 0;
+      let futureValue = 0;
+
+      let monthlyRate = Math.pow(1 + returns, 1 / 12) - 1;
+      let currentSIP = sip;
+
+      for (let y = 1; y <= years; y++) {
+        for (let m = 1; m <= 12; m++) {
+          let monthsLeft = ((years - y) * 12) + (12 - m) + (wait * 12);
+          futureValue += currentSIP * Math.pow(1 + monthlyRate, monthsLeft);
+          totalInvested += currentSIP;
+        }
+        currentSIP *= (1 + stepUp);
+      }
+
+      futureValue += lumpsum * Math.pow(1 + returns, years + wait);
+      totalInvested += lumpsum;
+
+      document.getElementById('results').innerHTML = `
+        Total Invested: ₹${Math.round(totalInvested).toLocaleString()}<br>
+        Estimated Future Value: ₹${Math.round(futureValue).toLocaleString()}
+      `;
+    }
+  </script>
+</body>
+</html>
