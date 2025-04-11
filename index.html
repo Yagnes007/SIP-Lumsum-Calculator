@@ -3,44 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SIP Calculator - Wisdom Consultancy</title>
+  <title>SIP & Lumpsum Calculator - Wisdom Consultancy</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #f9f9f9;
+      background: #f4f8fb;
       margin: 0;
       padding: 0;
+      color: #333;
     }
     .header {
       text-align: center;
-      background: #fff;
       padding: 20px 10px;
+      background-color: #fff;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     .header img {
-      max-width: 160px;
+      max-height: 100px;
     }
     .branding {
-      font-size: 1.2rem;
-      color: #555;
       margin-top: 10px;
+      font-size: 18px;
+      font-weight: 600;
     }
     .container {
-      max-width: 500px;
+      max-width: 600px;
       margin: 30px auto;
       padding: 20px;
-      background: #ffffff;
+      background: #fff;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     h2 {
       text-align: center;
-      color: #333;
+      color: #444;
     }
     label {
       display: block;
       margin-top: 15px;
-      color: #333;
+      font-weight: bold;
     }
     input {
       width: 100%;
@@ -68,9 +69,9 @@
       font-weight: bold;
       font-size: 16px;
     }
-    .whatsapp {
+    .whatsapp, .footer {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 30px;
     }
     .whatsapp a {
       background-color: #25D366;
@@ -81,15 +82,22 @@
       font-weight: bold;
       display: inline-block;
     }
+    .footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #777;
+    }
   </style>
 </head>
 <body>
   <div class="header">
-    <img src="Final_Logo%20Without%20Background.png" alt="Wisdom Consultancy Logo">
+    <img src="https://raw.githubusercontent.com/yagneshdole/wisdom-assets/main/logo.png" alt="Wisdom Consultancy Logo">
     <div class="branding">Wisdom Consultancy | Yagnesh Dole | Secure Your Future</div>
   </div>
+
   <div class="container">
-    <h2>SIP Calculator</h2>
+    <h2>SIP + Lumpsum Calculator</h2>
+
     <label for="sip">Monthly SIP Amount (₹):</label>
     <input type="number" id="sip">
 
@@ -111,11 +119,15 @@
     <button onclick="calculateSIP()">Calculate</button>
 
     <div class="results" id="results"></div>
+  </div>
 
-    <div class="whatsapp">
-      <p>Join Our Private WhatsApp Group for Smart Investment Tips 👇</p>
-      <a href="https://chat.whatsapp.com/HrKxAQt2KB24vLjsxTSRH6" target="_blank">Join Now</a>
-    </div>
+  <div class="whatsapp">
+    <p>Join Our Private WhatsApp Group for Smart Investment Tips 👇</p>
+    <a href="https://chat.whatsapp.com/HrKxAQt2KB24vLjsxTSRH6" target="_blank">Join Now</a>
+  </div>
+
+  <div class="footer">
+    Powered by Wisdom Consultancy - Yagnesh Dole
   </div>
 
   <script>
@@ -129,7 +141,6 @@
 
       let totalInvested = 0;
       let futureValue = 0;
-
       let monthlyRate = Math.pow(1 + returns, 1 / 12) - 1;
       let currentSIP = sip;
 
@@ -147,8 +158,7 @@
 
       document.getElementById('results').innerHTML = `
         Total Invested: ₹${Math.round(totalInvested).toLocaleString()}<br>
-        Estimated Future Value: ₹${Math.round(futureValue).toLocaleString()}
-      `;
+        Estimated Future Value: ₹${Math.round(futureValue).toLocaleString()}`;
     }
   </script>
 </body>
